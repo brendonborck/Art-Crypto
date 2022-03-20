@@ -4,10 +4,12 @@ import Header from "./Header";
 import arrowImg from "../img/arrow.png";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function UploadVideo(){
     const [name, setName] = useState("");
     const [file, setFile] = useState();
+    const history = useNavigate();
 
     function uploadToLivePeer(){
         if(name === ""){
@@ -30,7 +32,7 @@ export default function UploadVideo(){
         const url = "https://livepeer.com/api/asset/request-upload"
         const response = axios.post(url, data, config);
         response.then(res =>{
-            const path = (window.URL || window.webkitURL).createObjectURL(file);
+            const path = "/home/luiz/%C3%81rea%20de%20Trabalho/video_test.mp4";
             
             const url2 = res.data.url;
             const config2 = {
@@ -38,12 +40,15 @@ export default function UploadVideo(){
                     'Content-Type': 'video/mp4'
                 }
             }
+            
             console.log(path);
             const data2 = {
                 "data-binary": `@${path}`
             }
             const response2 = axios.put(url2,data2, config2);
             response2.then(res2 => {
+                alert("Vídeo upload");
+                window.open(url2);
                 console.log(res2);
             });
             response2.catch(err2 => {
