@@ -64,7 +64,6 @@ export default function UploadVideo(){
                 <ButtonStyle>search
                     <InputStyle type="file"                    
                     onChange={e => {
-                        console.log(e);
                         e.preventDefault();
                         setFile(e.target.files[0]);
                     }}/>
